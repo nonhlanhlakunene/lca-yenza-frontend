@@ -27,7 +27,7 @@ import plumberImage from '../assets/stickman plumber.png'
             </div>
         </div>
         <div class="login-left-side">
-            
+            <img :src="plumberImage" alt="plumber">
         </div>
 </template>
 
