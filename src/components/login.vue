@@ -4,7 +4,6 @@ import painterpicture from '../assets/painterpicture.png'
 
 <template>
   <div class="signup-container">
-    <!-- LEFT SIDE: SIGNUP FORM -->
     <div class="signup-left-side">
       <div class="signup-card">
         <div class="signup-logo-section">
@@ -44,7 +43,6 @@ import painterpicture from '../assets/painterpicture.png'
       </div>
     </div>
 
-    <!-- RIGHT SIDE: PAINTER IMAGE -->
     <div class="signup-right-side">
       <img :src="painterpicture" alt="Painter">
     </div>
@@ -60,8 +58,8 @@ body,
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100vh; /* Lock structural boundaries exactly to the viewport */
-  overflow: hidden; /* This hides the scrollbar completely on desktop */
+  height: 100vh;
+  overflow: hidden; 
   background: white;
   color: black;
   font-family: 'Plus Jakarta Sans', sans-serif;
@@ -70,11 +68,10 @@ body,
 .signup-container {
   display: flex;
   width: 100%;
-  height: 100vh; /* Changed from min-height back to height */
+  height: 100vh; 
   overflow: hidden; 
 }
 
-/* LEFT SIDE - FORM HOLDER */
 .signup-left-side {
   width: 50%;
   height: 100%;
@@ -84,14 +81,13 @@ body,
   box-sizing: border-box;
 }
 
-/* RIGHT SIDE - IMAGE HOLDER */
 .signup-right-side {
   width: 50%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* Prevents the large image dimensions from pushing out a scrollbar */
+  overflow: hidden;
 }
 
 
@@ -181,24 +177,21 @@ body,
   text-decoration: underline;
 }
 
-/* RESPONSIVE MOBILE OVERRIDES */
 @media (max-width: 768px) {
-  /* 1. Allow the page to scroll vertically on mobile so elements aren't cut off */
   html, body, #app {
     overflow-y: auto !important; 
   }
 
   .signup-container {
-    flex-direction: column; /* Stacks image above the form */
+    flex-direction: column; 
     height: auto;
     min-height: 100vh;
     overflow-y: auto;
   }
 
-  /* 2. Give the image section a clear, visible height on mobile */
   .signup-right-side {
     width: 100%;
-    height: 200px; /* Adjust this number to make the image area taller or shorter */
+    height: 200px; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -206,19 +199,17 @@ body,
     background-color: #ffffff;
   }
 
-  /* 3. Keep the image constrained within its box so it stays perfectly visible */
   .signup-right-side img {
     max-height: 100%;
     width: auto;
-    object-fit: contain; /* Prevents the stickman from getting cut off */
+    object-fit: contain; 
   }
 
-  /* 4. Allow the form section to take up the remaining space naturally */
   .signup-left-side {
     width: 100%;
     height: auto;
-    padding: 20px 20px 60px 20px; /* Bottom padding so the login button doesn't hit the screen edge */
-    display: block; /* Allows form contents to flow downward natively */
+    padding: 20px 20px 60px 20px; 
+    display: block; 
   }
   
   .signup-card {
