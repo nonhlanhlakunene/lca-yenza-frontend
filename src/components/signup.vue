@@ -29,7 +29,7 @@ import plumberImage from '../assets/stickman plumber.png'
           <button type="submit" class="login-button">Login</button>
           <div class="bottom-section">
                 <p>no account?</p>
-            <button class="signup-button">
+            <button class="signup-button-link">
                 sign up
             </button>
           </div>
@@ -171,6 +171,16 @@ body,
     border: none;
     background: none;
     text-align: center;
+}
+
+.signup-button-link{
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer;
+  color: #136163;
+  font-weight: 600;
+  border: none;
+  background: none;
+  text-decoration: underline;
 }
 
 /* MOBILE */
