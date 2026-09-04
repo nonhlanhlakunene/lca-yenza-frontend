@@ -5,5 +5,4 @@ import plumberImage from './assets/stickman plumber.png'
 
 <template>
   <signup />
-  <img :src="plumberImage" alt="Plumber">
 </template>
