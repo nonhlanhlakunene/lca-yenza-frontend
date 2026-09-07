@@ -6,7 +6,7 @@
         </div>
         
         <div class="form-group">
-            <label for="reasons">Reasons for reporting:</label> <br>
+            <label for="reasons">Reasons for reporting:</label>
             <select name="reasons" id="reasons">
                 <option value="">Select a reason</option>
                 <option value="behavior">Inappropriate behavior / Harassment</option>
@@ -25,18 +25,18 @@
             <textarea
             id="message"
             name="message"
-            rows="4"
+            rows="4" 
             placeholder="Add details about the incident...?"
             ></textarea>
         </div>
 
         <div class="booking-info">
-            <p>Booking: #123</p>
-            <p>Date: 2026-09-07</p>
+            <p><span class="label">Booking:</span> #123</p>
+            <p><span class="label">Date:</span> 2026-09-07</p>
         </div>
 
         <div class="warning">
-            <p>!! False reports may result in action against your account.</p>
+            <p>False reports may result in action against your account!!</p>
         </div>
 
         <div class="n-buttons">
@@ -47,6 +47,157 @@
 </template>
 
 
-<script></script>
+<script>
+export default {
+    name: "ReportCard",
+};
+</script>
 
-<style></style>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --color-page: #ffffff;
+  --color-primary: #136163;
+  --color-primary-dark: #134748;
+  --color-text: #000000;
+  /* --color-text-muted: #c7c7c7;
+  --color-border: #d9d9d9; */
+  --font-main: "Plus Jakarta Sans", sans-serif;
+  --font-xs: 0.7rem;
+  --font-sm: 0.85rem;
+  --font-md: 1rem;
+  --font-lg: 1.5rem;
+  --font-xl: 2rem;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 6rem;
+  --page-max-width: 1200px;
+  --page-padding: 2rem;
+}
+</style>
+
+<style scoped>
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.n-reportCard {
+    background: var(--color-primary);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 350px;
+    margin: 70px auto;
+    font-family: var(--font-main);
+}
+
+.n-header {
+  margin-bottom: 24px;
+}
+
+.n-header h2 {
+    font-size: var(--font-lg);
+    text-align: center;
+
+}
+
+.form-group,
+.description-text,
+.booking-info {
+    margin-bottom: 20px;
+}
+
+.form-group label,
+.description-text label {
+    display: block;
+    font-size: var(--font-sm);
+    margin-bottom: 8px;
+}
+
+
+
+select,
+textarea {
+  width: 100%;
+  padding: 10px 1px;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: var(--font-sm);
+  background: white;
+  color: #333;
+}
+
+select:focus,
+textarea:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  cursor: pointer;
+}
+
+
+.booking-info {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  font-size: var(--font-sm)
+}
+
+.warning p {
+    font-size: var(--font-xs);
+    margin-bottom: 20px;
+}
+
+.n-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.cancel-button,
+.submit-button {
+    background: #e8e8e8;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.cancel-button {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.cancel-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.submit-button {
+  background: white;
+  color: var(--color-primary);
+}
+
+.submit-button:hover {
+  background: #f0f0f0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+
+</style>
