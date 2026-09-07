@@ -122,9 +122,9 @@ export default {
 
 :root {
   --color-page: #ffffff;
-  --color-primary: #286568;
-  --color-primary-dark: #21595c;
-  --color-text: #e8e8e8;
+  --color-primary: #136163;
+  --color-primary-dark: #134748;
+  --color-text: #000000;
   --color-text-muted: #c7c7c7;
   --color-border: #d9d9d9;
   --font-main: "Plus Jakarta Sans", sans-serif;
