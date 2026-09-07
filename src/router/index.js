@@ -8,6 +8,13 @@ const router = createRouter({
       path: '/contact',
       name: 'contact',
       component: () => import('../views/ContactView.vue'),
+    },
+
+    // Temp testing report popup route
+    {
+      path:'/report-test',
+      name: 'report-test',
+      component: () => import ('../components/ReportPopup.vue'),
     }
   ],
 })
