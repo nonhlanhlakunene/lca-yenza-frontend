@@ -2,12 +2,12 @@
     <div class="n-reportCard">
         
         <div class="n-header">
-            <h2>Report an issue with Theo M. (Worker)</h2>
+            <h2>Report an issue with {{ personName }} ({{ personType }})</h2>
         </div>
         
         <div class="form-group">
             <label for="reasons">Reasons for reporting:</label>
-            <select name="reasons" id="reasons">
+            <select name="reasons" id="reasons" v-model="selectedReason">
                 <option value="">Select a reason</option>
                 <option value="behavior">Inappropriate behavior / Harassment</option>
                 <option value="no-show">No-show</option>
@@ -27,12 +27,13 @@
             name="message"
             rows="4" 
             placeholder="Add details about the incident...?"
+            v-model="description"
             ></textarea>
         </div>
 
         <div class="booking-info">
-            <p><span class="label">Booking:</span> #123</p>
-            <p><span class="label">Date:</span> 2026-09-07</p>
+            <p><span class="label">Booking:</span> #{{ bookingId }}</p>
+            <p><span class="label">Date:</span> {{ date }}</p>
         </div>
 
         <div class="warning">
@@ -40,8 +41,13 @@
         </div>
 
         <div class="n-buttons">
-          <button class="cancel-button" type="button">Cancel</button>  
-          <button class="submit-button" type="button">Submit</button>
+          <button class="cancel-button" type="button" @click="$emit('close')">Cancel</button>  
+          <button
+            class="submit-button"
+            type="button"
+            @click="submitReport"
+            :disabled="!selectedReason || !description.trim()"
+          >Submit</button>
         </div>
     </div>
 </template>
@@ -50,6 +56,43 @@
 <script>
 export default {
     name: "ReportCard",
+    props: {
+        personName: {
+            type: String,
+            required: true
+        },
+        personType: {
+            type: String,
+            required: true
+        },
+        bookingId: {
+            type: String,
+            required: true
+        },
+        date: {
+            type: String,
+            required: true
+        }
+    },
+    data() {
+        return {
+            selectedReason: '',
+            description: ''
+        }
+    },
+    methods: {
+        submitReport() {
+            const report = {
+                personName: this.personName,
+                personType: this.personType,
+                bookingId: this.bookingId,
+                reason: this.selectedReason,
+                description: this.description
+            }
+            console.log('Report submitted:', report)
+            this.$emit('close')
+        }
+    }
 };
 </script>
 
@@ -61,8 +104,6 @@ export default {
   --color-primary: #136163;
   --color-primary-dark: #134748;
   --color-text: #000000;
-  /* --color-text-muted: #c7c7c7;
-  --color-border: #d9d9d9; */
   --font-main: "Plus Jakarta Sans", sans-serif;
   --font-xs: 0.7rem;
   --font-sm: 0.85rem;
@@ -199,5 +240,11 @@ select {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
+.submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
 
 </style>

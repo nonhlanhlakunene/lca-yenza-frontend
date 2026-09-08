@@ -2,11 +2,11 @@
     <div class="n-reviewCard">
         
         <div class="n-header">
-            <h2>Rate your experience with Theo M.</h2>
+            <h2>Rate your experience with  {{ personName }} ({{ personType }})</h2>
         </div>
         
         <div class="form-group">
-            <label for="rating">How was your booking?</label>
+            <label for="rating">{{ personType === 'Worker' ? 'How was your service?' : 'How was this customer?' }}</label>
             
             <div class="stars">
                 <span v-for="star in 5" :key="star" class="star"
@@ -30,8 +30,8 @@
         </div>
 
         <div class="booking-info">
-            <p><span class="label">Booking:</span> #123</p>
-            <p><span class="label">Date:</span> 2026-09-07</p>
+            <p><span class="label">Booking:</span> #{{ bookingId }}</p>
+            <p><span class="label">Date:</span> {{ date }}</p>
         </div>
 
         <div class="n-buttons">
@@ -43,6 +43,24 @@
 
 <script>
 export default {
+    props: {
+        personName: {
+            type: String,
+            required: true
+        },
+        personType: {
+            type: String,
+            required: true
+        },
+        bookingId: {
+            type: String,
+            required: true
+        },
+        date: {
+            type: String,
+            required: true
+        }
+    },
     data() {
         return {
             hoveredRating: 0,
@@ -54,6 +72,9 @@ export default {
     methods: {
         submitReview() {
             const review = {
+                personName: this.personName,
+                personType: this.personType,
+                bookingId: this.bookingId,
                 rating: this.selectedRating,
                 comment: this.comment
             }
