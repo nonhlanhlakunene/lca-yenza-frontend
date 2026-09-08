@@ -36,7 +36,7 @@ import services from '../assets/services2.png'
             <p>Find Your Professional → <button class="service-link">service</button></p>
         </div>
 
-        <!-- <div class="home-third-section">
+        <div class="home-third-section">
             <h2>Why choose YENZA!</h2>
 
             <div class="home-boxes">
@@ -55,7 +55,7 @@ import services from '../assets/services2.png'
                     <p>Know what you're paying for</p>
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
 </template>
 
@@ -390,13 +390,14 @@ import services from '../assets/services2.png'
 
 
 
-/* .home-third-section {
+.home-third-section {
     width: 100%;
     padding: 60px 50px;
     box-sizing: border-box;
 }
 
 .home-third-section h2 {
+    color: #136163;
     text-align: center;
     font-size: 35px;
     margin: 0 0 40px 0;
@@ -414,12 +415,10 @@ import services from '../assets/services2.png'
     flex: 1;
     min-height: 180px;
     padding: 30px;
-    background: #136163;
     color: white;
     border-radius: 15px;
     box-sizing: border-box;
     text-align: center;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -477,5 +476,5 @@ import services from '../assets/services2.png'
     .box p {
         font-size: 14px;
     }
-} */
+} 
 </style>

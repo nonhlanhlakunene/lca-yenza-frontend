@@ -12,17 +12,15 @@ body {
     padding: 0;
     width: 100%;
     min-height: 100%;
-}
-
-body {
-    overflow-x: hidden;
-    overflow-y: auto;
+    height: auto !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
 }
 
 #app {
     width: 100%;
     min-height: 100vh;
-    height: auto;
-    overflow: visible;
+    height: auto !important;
+    overflow: visible !important;
 }
 </style>
