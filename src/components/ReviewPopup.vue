@@ -1,0 +1,226 @@
+<template>
+    <div class="n-reviewCard">
+        
+        <div class="n-header">
+            <h2>Rate your experience with Theo M.</h2>
+        </div>
+        
+        <div class="form-group">
+            <label for="rating">How was your booking?</label>
+            
+            <div class="stars">
+                <span v-for="star in 5" :key="star" class="star"
+                :class="{ active: star <= (hoveredRating || selectedRating) }"
+                @mouseenter="hoveredRating = star"
+                @mouseleave="hoveredRating = 0"
+                @click="selectedRating = star"
+                >☆</span>
+            </div>
+            
+        </div>
+        
+        <div class="comments">
+            <label for="comment">Leave a comment (Optional) </label>
+            <textarea
+            id="comment"
+            name="comment"
+            rows="4" 
+            v-model="comment"
+            ></textarea>
+        </div>
+
+        <div class="booking-info">
+            <p><span class="label">Booking:</span> #123</p>
+            <p><span class="label">Date:</span> 2026-09-07</p>
+        </div>
+
+        <div class="n-buttons">
+          <button class="skip-button" type="button" @click="$emit('close')">Skip</button>  
+          <button class="submit-button" type="button" @click="submitReview" :disabled="selectedRating === 0">Submit Review</button>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            hoveredRating: 0,
+            selectedRating: 0,
+            comment: ''
+        }
+    },
+
+    methods: {
+        submitReview() {
+            const review = {
+                rating: this.selectedRating,
+                comment: this.comment
+            }
+            console.log('Review submitted:', review)
+            this.$emit('close')
+        }
+    }
+}
+</script>
+
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --color-page: #ffffff;
+  --color-primary: #136163;
+  --color-primary-dark: #134748;
+  --color-text: #000000;
+  --font-main: "Plus Jakarta Sans", sans-serif;
+  --font-xs: 0.7rem;
+  --font-sm: 0.85rem;
+  --font-md: 1rem;
+  --font-lg: 1.5rem;
+  --font-xl: 2rem;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 6rem;
+  --page-max-width: 1200px;
+  --page-padding: 2rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+</style>
+
+<style scoped>
+.n-reviewCard {
+    background: var(--color-primary);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 350px;
+    margin: 70px auto;
+    font-family: var(--font-main);
+}
+
+.n-header {
+  margin-bottom: 24px;
+}
+
+.n-header h2 {
+    font-size: var(--font-lg);
+    text-align: center;
+}
+
+.form-group,
+.comments {
+    text-align:center;
+}
+
+.stars {
+    justify-content: center;
+}
+
+.form-group,
+.comments,
+.booking-info {
+    margin-bottom: 20px;
+}
+
+.form-group label,
+.comments label {
+    display: block;
+    font-size: var(--font-sm);
+    margin-bottom: 8px;
+}
+
+textarea {
+  width: 100%;
+  padding: 5px 0px;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: var(--font-sm);
+  background: white;
+  color: #333;
+}
+
+textarea:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+.booking-info {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: var(--font-sm);
+}
+
+.stars {
+  display: flex;
+  gap: 8px;
+}
+
+.star {
+  font-size: 30px;
+  color: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.star:hover {
+  transform: scale(1.15);
+}
+
+.star.active {
+  color: #F2B705;
+}
+
+.n-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.skip-button,
+.submit-button {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    flex: 1;
+    color: #333;
+    font-family: inherit;
+}
+
+.skip-button {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.skip-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.submit-button {
+  background: white;
+  color: var(--color-primary);
+}
+
+.submit-button:hover {
+  background: #f0f0f0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+</style>

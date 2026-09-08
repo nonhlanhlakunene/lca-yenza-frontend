@@ -15,6 +15,14 @@ const router = createRouter({
       path:'/report-test',
       name: 'report-test',
       component: () => import ('../components/ReportPopup.vue'),
+    },
+
+
+    // Temp testing review popup route
+    {
+      path:'/review-test',
+      name: 'review-test',
+      component: () => import ('../components/ReviewPopup.vue'),
     }
   ],
 })
