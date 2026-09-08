@@ -29,6 +29,12 @@ import services from '../assets/services2.png'
                 <img :src="services" alt="Services">
             </div>
         </div>
+        
+        <div class="home-second-section">
+            <h4>Got a job that needs doing?</h4>
+            <p>Don't spend hours looking for someone you can trust. Find the right professional, book your service, and let the experts handle the rest</p><br>
+            <p>Find Your Professional → <button class="service-link">service</button></p>
+        </div>
     </div>
 </template>
 
@@ -45,10 +51,10 @@ import services from '../assets/services2.png'
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-.home-container{
-  display: flex;
-  width: 100%;
-  height: 500px; 
+.home-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 /* Navbar */
@@ -106,14 +112,13 @@ import services from '../assets/services2.png'
 }
 
 .home-services {
-  width: 70%;
-  height: 100%;
-  height: 600px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  box-sizing: border-box;
+    width: 70%;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .home-services img {
@@ -123,11 +128,12 @@ import services from '../assets/services2.png'
   display: block;
 }
 
-.home-hero-section{
+.home-hero-section {
     width: 100%;
-    height: 100%;
+    height: 600px;
     display: flex;
     flex-direction: row;
+    flex-shrink: 0;
 }
 
 
@@ -180,7 +186,6 @@ import services from '../assets/services2.png'
         object-fit: cover;
     }
 }
-
 @media (max-width: 768px) {
     .home-navbar {
         padding: 15px 20px;
@@ -253,5 +258,54 @@ import services from '../assets/services2.png'
 
 
 
+
+
+/* Home second section */
+
+
+.home-second-section {
+    width: 100%;
+    padding: 60px 50px;
+    flex-shrink: 0;
+}
+
+.home-second-section h4{
+    margin-bottom: 15px;
+    font-size: 25px;
+}
+
+.home-second-section p{
+    word-spacing: 5%;
+    max-width: 700px;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.service-link{
+    border: none;
+    background: white;
+    font-weight: 600;
+    font-size: 17px;
+    text-decoration: underline;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.service-link:hover{
+    color: #136163;
+}
+
+
+html,
+body,
+#app {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
 
 </style>
