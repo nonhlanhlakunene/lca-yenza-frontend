@@ -129,7 +129,7 @@
         <div v-for="(item, index) in bannerItems" :key="index" class="banner-item">
 
           <div class="banner-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-Width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 2"/>
               <path d="M9"/>
             </svg>
@@ -214,7 +214,7 @@
   align-items: center;
   gap: var(--spacing-xs);
 }
-banner-icon svg {
+.banner-icon svg {
   width: 42px;
   height: 42px;
   stroke: var(--color-page);
