@@ -35,6 +35,27 @@ import services from '../assets/services2.png'
             <p>Don't spend hours looking for someone you can trust. Find the right professional, book your service, and let the experts handle the rest</p><br>
             <p>Find Your Professional → <button class="service-link">service</button></p>
         </div>
+
+        <!-- <div class="home-third-section">
+            <h2>Why choose YENZA!</h2>
+
+            <div class="home-boxes">
+                <div class="box">
+                    <h3>Trusted Professionals</h3>
+                    <p>Professionals you can rely on</p>
+                </div>
+
+                <div class="box">
+                    <h3>Quick & Easy</h3>
+                    <p>Find someone without waiting hours searching</p>
+                </div>
+
+                <div class="box">
+                    <h3>Transparent Pricing</h3>
+                    <p>Know what you're paying for</p>
+                </div>
+            </div>
+        </div> -->
     </div>
 </template>
 
@@ -297,15 +318,164 @@ import services from '../assets/services2.png'
 }
 
 
-html,
-body,
-#app {
-    margin: 0;
-    padding: 0;
-    min-height: 100%;
-    height: auto;
-    overflow-x: hidden;
-    overflow-y: auto;
+@media (max-width: 1024px) {
+    .home-second-section {
+        padding: 50px 40px;
+    }
+
+    .home-second-section h4 {
+        font-size: 23px;
+    }
+
+    .home-second-section p {
+        max-width: 650px;
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .service-link {
+        font-size: 16px;
+    }
 }
 
+@media (max-width: 768px) {
+    .home-second-section {
+        padding: 45px 25px;
+    }
+
+    .home-second-section h4 {
+        font-size: 21px;
+        margin-bottom: 12px;
+    }
+
+    .home-second-section p {
+        max-width: 100%;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .service-link {
+        font-size: 15px;
+        margin-left: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-second-section {
+        padding: 35px 20px;
+    }
+
+    .home-second-section h4 {
+        font-size: 20px;
+        line-height: 1.3;
+    }
+
+    .home-second-section p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .service-link {
+        font-size: 14px;
+        margin-left: 5px;
+    }
+}
+
+
+
+
+
+
+/* Third section */
+
+
+
+/* .home-third-section {
+    width: 100%;
+    padding: 60px 50px;
+    box-sizing: border-box;
+}
+
+.home-third-section h2 {
+    text-align: center;
+    font-size: 35px;
+    margin: 0 0 40px 0;
+}
+
+.home-boxes {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.box {
+    flex: 1;
+    min-height: 180px;
+    padding: 30px;
+    background: #136163;
+    color: white;
+    border-radius: 15px;
+    box-sizing: border-box;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.box h3 {
+    margin: 0 0 15px 0;
+    font-size: 21px;
+}
+
+.box p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .home-third-section {
+        padding: 45px 25px;
+    }
+
+    .home-third-section h2 {
+        font-size: 28px;
+    }
+
+    .home-boxes {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .box {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-third-section {
+        padding: 35px 20px;
+    }
+
+    .home-third-section h2 {
+        font-size: 25px;
+    }
+
+    .box {
+        min-height: 140px;
+        padding: 20px;
+    }
+
+    .box h3 {
+        font-size: 18px;
+    }
+
+    .box p {
+        font-size: 14px;
+    }
+} */
 </style>
