@@ -21,7 +21,10 @@ import services from '../assets/services2.png'
                 <p> 
                     Find trusted professionals for all your home and maintenance needs.
                     From plumbing and painting to gardening, carpentry, and more — 
-                    get the job done by skilled workers you can rely on.
+                    get the job done by skilled workers you can rely on. <br><br>
+                    Don't spend hours looking for someone you can trust. Find the right professional, 
+                    book your service, and let the experts handle the rest <br><br>
+                    Find Your Professional → <button class="service-link">service</button>
                 </p>
             </div>
 
@@ -30,28 +33,23 @@ import services from '../assets/services2.png'
             </div>
         </div>
         
-        <div class="home-second-section">
-            <h4>Got a job that needs doing?</h4>
-            <p>Don't spend hours looking for someone you can trust. Find the right professional, book your service, and let the experts handle the rest</p><br>
-            <p>Find Your Professional → <button class="service-link">service</button></p>
-        </div>
 
         <div class="home-third-section">
-            <h2>Why choose YENZA!</h2>
+            <h2>Why choose <span class="special-font">YENZA!</span></h2>
 
             <div class="home-boxes">
                 <div class="box">
-                    <h3>🔒Trusted Professionals</h3>
+                    <h3>Trusted Professionals</h3>
                     <p>Professionals you can rely on</p>
                 </div>
                 <hr>
                 <div class="box">
-                    <h3>⚡Quick & Easy</h3>
+                    <h3>Quick & Easy</h3>
                     <p>Find someone without waiting hours searching</p>
                 </div>
                 <hr>
                 <div class="box">
-                    <h3>💰Transparent Pricing</h3>
+                    <h3>Transparent Pricing</h3>
                     <p>Know what you're paying for</p>
                 </div>
             </div>
@@ -146,6 +144,11 @@ import services from '../assets/services2.png'
     font-size: 100px;
     font-weight: 800;
     margin-bottom: 25px;
+}
+
+.special-font{
+    font-size: 50px;
+    font-family: "JejuHallasan", sans-serif;
 }
 
 .home-text {
@@ -327,6 +330,7 @@ import services from '../assets/services2.png'
 }
 
 .home-second-section h4{
+    color: #136163;
     margin-bottom: 15px;
     font-size: 25px;
 }
@@ -340,8 +344,9 @@ import services from '../assets/services2.png'
 }
 
 .service-link{
+    background: #136163;
+    color: white;
     border: none;
-    background: white;
     font-weight: 600;
     font-size: 20px;
     text-decoration: underline;
@@ -350,7 +355,7 @@ import services from '../assets/services2.png'
 }
 
 .service-link:hover{
-    color: #136163;
+    color: #bfcacb;
 }
 
 
