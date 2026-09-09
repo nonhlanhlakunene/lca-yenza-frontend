@@ -165,13 +165,14 @@ export default {
 select,
 textarea {
   width: 100%;
-  padding: 10px 1px;
+  padding: 10px;
   border: none;
   border-radius: 8px;
   font-family: inherit;
   font-size: var(--font-sm);
   background: white;
   color: #333;
+  box-sizing: border-box;
 }
 
 select:focus,
@@ -246,5 +247,7 @@ select {
   transform: none;
   box-shadow: none;
 }
+
+
 
 </style>
