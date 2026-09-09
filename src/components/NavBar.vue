@@ -2,7 +2,7 @@
   <nav class="home-navbar">
     <ul class="navbar-links">
       <li v-for="(link, index) in navLinks" v-bind:key="index">
-        <a v-bind:href="link.url">{{ link.text }}</a>
+        <router-link v-bind:to="link.path">{{ link.text }}</router-link>
       </li>
     </ul>
   </nav>
@@ -11,28 +11,20 @@
 <script setup>
 import { ref } from 'vue'
 
-// 1. We create a simple list (Array) containing each navigation link name and URL
 const linkList = [
-  { text: 'Home', url: '#home' },
-  { text: 'Services', url: '#services' },
-  { text: 'About Us', url: '#about' },
-  { text: 'Reviews', url: '#reviews' },
-  { text: 'Bookings', url: '#bookings' },
-  { text: 'Contact', url: '#contact' }
+  { text: 'Home', path: '/' },
+  { text: 'Services', path: '/services' },
+  { text: 'About Us', path: '/about' },
+  { text: 'Bookings', path: '/bookings' },
+  { text: 'Contact', path: '/contact' }
 ]
 
-// 2. We wrap our list in ref() so Vue can manage it reactively
 const navLinks = ref(linkList)
+
 </script>
 
-<style scoped>
-/* 
-  We replaced static colors and padding with your CSS root variables:
-  - background: var(--color-primary)
-  - color: var(--color-page)
-  - padding: var(--spacing-sm) var(--spacing-md)
-*/
 
+<style scoped>
 .home-navbar {
   background-color: var(--color-primary);
   display: flex;
@@ -58,6 +50,11 @@ const navLinks = ref(linkList)
 
 .navbar-links a:hover {
   opacity: 0.8;
+}
+
+.navbar-links a.router-link-active {
+    font-weight: 700;
+    text-decoration: underline;
 }
 
 /* Mobile Layout Adjustment */
