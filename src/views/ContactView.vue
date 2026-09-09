@@ -277,7 +277,7 @@ export default {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    padding: 10px 80px 10px;
+    padding: 50px 80px 30px;
     border-top: 1px solid #f0f0f0;
     background: #fafafa;
 }
