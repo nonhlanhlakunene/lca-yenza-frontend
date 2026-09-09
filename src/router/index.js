@@ -23,7 +23,15 @@ const router = createRouter({
       path:'/review-test',
       name: 'review-test',
       component: () => import ('../components/ReviewPopup.vue'),
+    },
+
+    // Temp testing verify identify route
+    {
+    path:'/verification',
+    name:'verification',
+    component: () => import ('../components/VerifyIdentity.vue'),
     }
+
   ],
 })
 
