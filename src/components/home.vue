@@ -66,7 +66,7 @@ import services from '../assets/services2.png'
                     <h2>1,200+ <br>Jobs completed</h2>
                 </div>
                 <div class="box">
-                    <h2>4.8/6 <br>Average rating</h2>
+                    <h2>4.8/5 <br>Average rating</h2>
                 </div>
             </div>
         </div>
@@ -745,4 +745,11 @@ import services from '../assets/services2.png'
   margin: 0;                 
 }
 
+@media (min-width: 768px) {
+  .site-footer {
+    flex-direction: row;            
+    justify-content: space-between; 
+    gap: 0;
+  }
+}
 </style>
