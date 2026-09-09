@@ -44,18 +44,19 @@ import services from '../assets/services2.png'
                     <h3>Trusted Professionals</h3>
                     <p>Professionals you can rely on</p>
                 </div>
-
+                <hr class="customhrline">
                 <div class="box">
-                    <h3>Quick & Easy</h3>
+                    <h3>⚡Quick & Easy</h3>
                     <p>Find someone without waiting hours searching</p>
                 </div>
-
+                <hr class="customhrline">
                 <div class="box">
                     <h3>Transparent Pricing</h3>
                     <p>Know what you're paying for</p>
                 </div>
             </div>
         </div>
+        <hr>
     </div>
 </template>
 
@@ -411,11 +412,14 @@ import services from '../assets/services2.png'
     gap: 30px;
 }
 
+/* .customhrline{
+    
+} */
+
 .box {
     flex: 1;
     min-height: 180px;
     padding: 30px;
-    color: white;
     border-radius: 15px;
     box-sizing: border-box;
     text-align: center;
