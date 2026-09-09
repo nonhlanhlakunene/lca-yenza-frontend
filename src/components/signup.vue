@@ -44,7 +44,7 @@ import plumberImage from '../assets/stickman plumber.png'
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
-html,
+/* html,
 body,
 #app {
   margin: 0;
@@ -53,7 +53,7 @@ body,
   background: white;
   color: black;
   font-family: 'Plus Jakarta Sans', sans-serif;
-}
+} */
 
 .login-container {
   display: flex;
@@ -166,10 +166,11 @@ body,
 
 .signup-button{
     font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #136163;
     cursor: pointer;
     color: gray;
     border: none;
-    background: none;
+    color: white;
     text-align: center;
 }
 

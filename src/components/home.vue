@@ -41,22 +41,35 @@ import services from '../assets/services2.png'
 
             <div class="home-boxes">
                 <div class="box">
-                    <h3>Trusted Professionals</h3>
+                    <h3>🔒Trusted Professionals</h3>
                     <p>Professionals you can rely on</p>
                 </div>
-                <hr class="customhrline">
+                <hr>
                 <div class="box">
                     <h3>⚡Quick & Easy</h3>
                     <p>Find someone without waiting hours searching</p>
                 </div>
-                <hr class="customhrline">
+                <hr>
                 <div class="box">
-                    <h3>Transparent Pricing</h3>
+                    <h3>💰Transparent Pricing</h3>
                     <p>Know what you're paying for</p>
                 </div>
             </div>
         </div>
-        <hr>
+        <hr class="customhrline">
+        <div class="home-fourth-section">
+            <div class="home-boxes">
+                <div class="box">
+                    <h2>500+ <br>Professionals</h2>
+                </div>
+                <div class="box">
+                    <h2>1,200+ <br>Jobs completed</h2>
+                </div>
+                <div class="box">
+                    <h2>4.8/6 <br>Average rating</h2>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -412,10 +425,6 @@ import services from '../assets/services2.png'
     gap: 30px;
 }
 
-/* .customhrline{
-    
-} */
-
 .box {
     flex: 1;
     min-height: 180px;
@@ -479,6 +488,106 @@ import services from '../assets/services2.png'
 
     .box p {
         font-size: 14px;
+    }
+} 
+
+
+
+
+
+
+
+/* Home fourth section */
+
+
+.customhrline{
+    width: 100%;
+    max-width: 90%;
+    margin: 20px auto;
+}
+
+
+.home-fourth-section {
+    width: 100%;
+    padding: 60px 50px;
+    box-sizing: border-box;
+}
+
+.home-fourth-section h2 {
+    color: #136163;
+    text-align: center;
+    font-size: 35px;
+    margin: 0 0 40px 0;
+}
+
+.home-boxes {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.box {
+    flex: 1;
+    min-height: 180px;
+    padding: 30px;
+    border-radius: 15px;
+    box-sizing: border-box;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .box h2 {
+    color: #136163;
+    margin: 0 0 15px 0;
+    font-size: 40px;
+} */
+
+.box p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .home-fourth-section {
+        padding: 45px 25px;
+    }
+
+    .home-fourth-section h2 {
+        font-size: 28px;
+    }
+
+    .home-boxes {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .box {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-fourth-section {
+        padding: 35px 20px;
+    }
+
+    .home-fourth-section h2 {
+        font-size: 25px;
+    }
+
+    .box {
+        min-height: 140px;
+        padding: 20px;
+    }
+
+    .box h2 {
+        font-size: 25px;
     }
 } 
 </style>

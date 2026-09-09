@@ -52,7 +52,7 @@ import painterpicture from '../assets/painterpicture.png'
 <style>
 @import url('https://googleapis.com');
 
-html,
+/* html,
 body,
 #app {
   margin: 0;
@@ -63,7 +63,7 @@ body,
   background: white;
   color: black;
   font-family: 'Plus Jakarta Sans', sans-serif;
-}
+} */
 
 .signup-container {
   display: flex;
@@ -178,9 +178,6 @@ body,
 }
 
 @media (max-width: 768px) {
-  html, body, #app {
-    overflow-y: auto !important; 
-  }
 
   .signup-container {
     flex-direction: column; 
