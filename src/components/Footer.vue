@@ -21,7 +21,7 @@ const currentYear = ref(2026)
 .footer {
   background-color: var(--color-primary);
   text-align: center;
-  padding: var(--spacing-md) var(--page-padding);
+  padding: var(--spacing-sm) var(--page-padding);
   color: var(--color-page);
 }
 

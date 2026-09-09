@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import AboutView from '../views/AboutView.vue'
 // import BookingsView from '../views/BookingsView.vue'
-// import CheckoutView from '..views/CheckoutView.vue'
+import CheckoutView from '..views/CheckoutView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,16 +12,11 @@ const router = createRouter({
       name: 'about',
       component: AboutView,
     },
-    // {
-    //   path: '/bookings',
-    //   name: 'bookings',
-    //   component: BookingsView,
-    // },
-    // {
-    //   path: '/checkout',
-    //   name: "checkout",
-    //   component: CheckoutView,
-    // },
+    {
+      path: '/checkout',
+      name: "checkout",
+      component: CheckoutView,
+    }
   ],
 })
 
