@@ -25,8 +25,8 @@
             id="comment"
             name="comment"
             rows="4" 
-            v-model="comment"
-            ></textarea>
+            v-model="comment">
+            </textarea>
         </div>
 
         <div class="booking-info">
@@ -158,13 +158,15 @@ export default {
 
 textarea {
   width: 100%;
-  padding: 5px 0px;
+  padding: 13px;
   border: none;
   border-radius: 8px;
   font-family: inherit;
   font-size: var(--font-sm);
   background: white;
   color: #333;
+  box-sizing: border-box;
+  
 }
 
 textarea:focus {
