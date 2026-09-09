@@ -70,6 +70,28 @@ import services from '../assets/services2.png'
                 </div>
             </div>
         </div>
+        <div class="home-reviews">
+            <h2>Don't just take our word for it</h2>
+
+            <div class="home-boxes">
+                <div class="boxes">
+                    <h3>reviews</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam vel iure temporibus voluptatem fugiat. Voluptate minus, voluptatem nihil quam amet voluptatibus corporis libero praesentium! Illum, cupiditate. Ipsam aliquam, libero illum esse dignissimos praesentium molestiae ducimus aliquid deserunt non, sapiente corporis eius natus alias? Quod, cupiditate reprehenderit magnam doloribus adipisci culpa.</p>
+                </div>
+                <div class="boxes">
+                    <h3>reviews</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. At mollitia voluptatem nulla iusto fugiat omnis unde esse quisquam odit nemo, rem deserunt voluptatibus dignissimos sequi doloribus nam labore et reiciendis eligendi laboriosam fuga consectetur culpa. Reiciendis voluptate alias deleniti asperiores sequi illum officia velit, quasi facilis totam eum itaque pariatur.</p>
+                </div>
+                <div class="boxes">
+                    <h3>reviews</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero est voluptatem, omnis laboriosam, vero possimus dolorum, quia mollitia nobis labore iusto nesciunt tenetur itaque! Libero rerum explicabo voluptatibus odio laborum laboriosam quod eius adipisci a. Totam atque, reiciendis veritatis quam incidunt sapiente distinctio necessitatibus ex, nihil soluta sed, recusandae nisi!</p>
+                </div>
+            </div>
+        </div>
+        <footer class="site-footer">
+            <p class="footer-tagline">Making it easier to find trusted professionals</p>
+            <p class="footer-copyright">&copy; 2026 YENZA! All rights reserved.</p>
+        </footer>
     </div>
 </template>
 
@@ -311,9 +333,9 @@ import services from '../assets/services2.png'
 
 .home-second-section p{
     word-spacing: 5%;
-    max-width: 700px;
+    /* max-width: 700px; */
     font-weight: 600;
-    font-size: 17px;
+    font-size: 20px;
     line-height: 1.7;
 }
 
@@ -321,7 +343,7 @@ import services from '../assets/services2.png'
     border: none;
     background: white;
     font-weight: 600;
-    font-size: 17px;
+    font-size: 20px;
     text-decoration: underline;
     margin-left: 15px;
     cursor: pointer;
@@ -590,4 +612,137 @@ import services from '../assets/services2.png'
         font-size: 25px;
     }
 } 
+
+
+
+
+
+
+
+/* Home reviews */
+
+
+
+.home-reviews {
+    width: 100%;
+    padding: 60px 50px;
+    box-sizing: border-box;
+}
+
+.home-reviews h2 {
+    color: #136163;
+    text-align: center;
+    font-size: 35px;
+    margin: 0 0 40px 0;
+}
+
+.home-boxes {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.boxes {
+    background-color: rgb(232, 229, 229);
+    flex: 1;
+    min-height: 180px;
+    padding: 30px;
+    border-radius: 15px;
+    box-sizing: border-box;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.boxes h3 {
+    margin: 0 0 15px 0;
+    font-size: 21px;
+}
+
+.boxes p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .home-reviews {
+        padding: 45px 25px;
+    }
+
+    .home-reviews h2 {
+        font-size: 28px;
+    }
+
+    .home-boxes {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .boxes {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-reviews {
+        padding: 35px 20px;
+    }
+
+    .home-reviews h2 {
+        font-size: 25px;
+    }
+
+    .boxes {
+        min-height: 140px;
+        padding: 20px;
+    }
+
+    .boxes h3 {
+        font-size: 18px;
+    }
+
+    .boxes p {
+        font-size: 14px;
+    }
+} 
+
+
+
+
+
+/* footer */
+
+
+
+.site-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px; 
+  background-color: #115e59; 
+  color: #ffffff;            
+  padding: 24px 16px;       
+  font-family: sans-serif;   
+  text-align: center;
+}
+
+.footer-tagline {
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0;               
+}
+
+.footer-copyright {
+  font-weight: 500;
+  font-size: 14px;
+  opacity: 0.9;             
+  margin: 0;                 
+}
+
 </style>
