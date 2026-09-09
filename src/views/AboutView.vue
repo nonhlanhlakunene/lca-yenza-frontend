@@ -64,9 +64,10 @@
 import { ref } from 'vue'
 
 const bannerList = [
-  { title: 'Verified Professionals' },
+  { title: 'Satisfaction Guaranteed' },
+  { title: 'Local Experts' },
   { title: 'Easy Bookings' },
-  { title: 'Verified Professionals' }
+  { title: 'Safe and Secure' }
 ]
 const bannerItems = ref(bannerList)
 
