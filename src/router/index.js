@@ -30,6 +30,7 @@ const router = createRouter({
     path:'/verification',
     name:'verification',
     component: () => import ('../components/VerifyIdentity.vue'),
+    props: { showVerification: true, userType: 'worker' }
     }
 
   ],
