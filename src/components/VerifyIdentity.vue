@@ -1,100 +1,233 @@
 <template>
     <div v-if="showVerification" class="verification-overlay">
         <div class="n-verifyForm">
-            
+
             <button class="close-btn" type="button" @click="$emit('close')">×</button>
-            
+
             <div class="n-bars">
                 <div
-                v-for="n in totalSteps"
-                :key="n"
-                class="progress-segment"
-                :class="{ active: step >= n }"
+                    v-for="n in totalSteps"
+                    :key="n"
+                    class="progress-segment"
+                    :class="{ active: step >= n }"
                 ></div>
             </div>
-            
-            <!-- STEP 1: Phone number -->
+            <p class="step-count">{{ step }}/{{ totalSteps }}</p>
+
+            <p v-if="globalError" class="error-banner">{{ globalError }}</p>
+
+            <!-- STEP 1: Phone (both) -->
             <div v-if="step === 1">
                 <div class="n-headings">
                     <h3>VERIFY YOUR PHONE</h3>
                     <p>Enter your mobile number to receive the code.</p>
                 </div>
-                
+
                 <form class="verification-card" @submit.prevent="sendOtp">
-                    <label for="number">Phone Number</label> <br>
-                    <input
-                    id="number"
-                    name="number"
-                    type="tel"
-                    v-model="phoneNumber"
-                    pattern="^(0|\+27)[1-9][0-9]{8}$"
-                    placeholder="e.g., 0821234567 or +27821234567"
-                    required
-                    /> <br>
+                    <label for="number">Phone Number</label>
+                    <div class="phone-row">
+                        <select v-model="countryCode">
+                            <option value="+27">+27</option>
+                        </select>
+                        <input
+                            id="number"
+                            type="tel"
+                            v-model="phoneNumber"
+                            placeholder="82 000 0000"
+                            required
+                        />
+                    </div>
                     <button class="send-otp" type="submit">Send OTP</button>
                 </form>
             </div>
-            
-            <!-- STEP 2: OTP entry -->
+
+            <!-- STEP 2: OTP (both) -->
             <div v-if="step === 2">
                 <div class="n-headings">
                     <h3>ENTER VERIFICATION CODE</h3>
-                    <p>We sent a code to {{ phoneNumber }}</p>
+                    <p>We sent a code to {{ countryCode }} {{ phoneNumber }}</p>
                 </div>
-                
+
                 <form class="verification-card" @submit.prevent="verifyOtp">
-                    <label for="otp">6-digit code</label> <br>
-                    <input
-                    id="otp"
-                    type="text"
-                    maxlength="6"
-                    v-model="enteredOtp"
-                    placeholder="123456"
-                    required
-                    /> <br>
+                    <div class="otp-inputs">
+                        <input
+                            v-for="(digit, index) in otpDigits"
+                            :key="index"
+                            type="text"
+                            maxlength="1"
+                            v-model="otpDigits[index]"
+                            @input="handleOtpInput(index, $event)"
+                            @keydown.backspace="handleOtpBackspace(index, $event)"
+                            ref="otpInputs"
+                        />
+                    </div>
                     <p v-if="otpError" class="error-message">Incorrect code, try again.</p>
-                    <button class="send-otp" type="submit">Verify OTP</button>
-                    <p class="resend" @click="sendOtp">Resend code</p>
+                    <button class="send-otp" type="submit" :disabled="!isOtpComplete">Verify OTP</button>
+                    <p class="resend" @click="resendCooldown === 0 ? sendOtp() : null" :class="{ disabled: resendCooldown > 0 }">
+                        {{ resendCooldown > 0 ? `Resend code in ${resendCooldown}s` : 'Resend code' }}
+                    </p>
                 </form>
             </div>
-            
-            <!-- STEP 3: ID upload (WORKERS ONLY) -->
+
+            <!-- STEP 3: ID upload (worker only) -->
             <div v-if="step === 3 && userType === 'worker'">
                 <div class="n-headings">
-                    <h3>UPLOAD YOUR ID</h3>
+                    <h3>VERIFY YOUR IDENTITY</h3>
                     <p>Upload a clear photo of your South African ID.</p>
                 </div>
-                
-                <div class="phone-confirmed">✔ Phone verified · {{ phoneNumber }}</div>
-                
+
                 <form class="verification-card" @submit.prevent="submitId">
-                    <label for="idUpload">ID Document</label> <br>
-                    <input
-                    id="idUpload"
-                    type="file"
-                    accept="image/*"
-                    capture="environment"
-                    @change="handleFileUpload"
-                    required
-                    /> <br>
-                    <p v-if="idFileName" class="file-selected">Selected: {{ idFileName }}</p>
-                    <button class="send-otp" type="submit" :disabled="!idFile">Submit for review</button>
+                    <div class="upload-group">
+                        <label for="idUpload">ID Document</label>
+                        <input
+                            id="idUpload"
+                            type="file"
+                            accept="image/*"
+                            capture="environment"
+                            @change="handleFileUpload($event, 'idFile', 'idFileName')"
+                            required
+                        />
+                        <p v-if="idFileName" class="file-selected">Selected: {{ idFileName }}</p>
+                        <p class="upload-info">Accepted formats: JPG, PNG</p>
+                    </div>
+
+                    <button class="send-otp" type="submit" :disabled="!idFile">Continue</button>
+                    <div class="row-actions">
+                        <button type="button" class="link-button" @click="goBack">← Back</button>
+                        <button type="button" class="link-button" @click="skipStep">Skip for now</button>
+                    </div>
                 </form>
             </div>
-            
-            <!-- FINAL STEP -->
-            <div v-if="step === totalSteps">
-                <div class="n-headings" v-if="userType === 'worker'">
-                    <h3>YOU'RE ALL SET ✓</h3>
-                    <p>Your details are under review. We'll notify you once approved.</p>
+
+            <!-- STEP 4: Address (worker only) -->
+            <div v-if="step === 4 && userType === 'worker'">
+                <div class="n-headings">
+                    <h3>VERIFY YOUR ADDRESS</h3>
+                    <p>Upload a document that confirms your current address.</p>
                 </div>
-                <div class="n-headings" v-else>
-                    <h3>PHONE VERIFIED ✓</h3>
-                    <p>You're ready to start booking.</p>
+
+                <form class="verification-card" @submit.prevent="submitAddress">
+                    <div class="upload-group">
+                        <label for="addressUpload">Proof of Address</label>
+                        <input
+                            id="addressUpload"
+                            type="file"
+                            accept="image/*"
+                            @change="handleFileUpload($event, 'addressFile', 'addressFileName')"
+                            required
+                        />
+                        <p v-if="addressFileName" class="file-selected">Selected: {{ addressFileName }}</p>
+                        <p class="upload-info">Accepted formats: JPG, PNG</p>
+                    </div>
+
+                    <button class="send-otp" type="submit" :disabled="!addressFile">Continue</button>
+                    <div class="row-actions">
+                        <button type="button" class="link-button" @click="goBack">← Back</button>
+                        <button type="button" class="link-button" @click="skipStep">Skip for now</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- STEP 5: Background check (worker only) -->
+            <div v-if="step === 5 && userType === 'worker'">
+                <div class="n-headings">
+                    <h3>BACKGROUND CHECK</h3>
+                    <p>Submit the documents required for your background verification.</p>
                 </div>
+
+                <form class="verification-card" @submit.prevent="submitBackground">
+                    <div class="upload-section">
+                        <label for="policeClearance">Police Clearance</label>
+                        <p>Upload your police clearance certificate.</p>
+                        <input
+                            id="policeClearance"
+                            type="file"
+                            accept="image/*"
+                            @change="handleFileUpload($event, 'policeClearanceFile', 'policeClearanceFileName')"
+                        />
+                        <p v-if="policeClearanceFileName" class="file-selected">Selected: {{ policeClearanceFileName }}</p>
+                    </div>
+
+                    <div class="upload-section">
+                        <label for="affidavit">Affidavit</label>
+                        <p>Upload your completed affidavit.</p>
+                        <input
+                            id="affidavit"
+                            type="file"
+                            accept="image/*"
+                            @change="handleFileUpload($event, 'affidavitFile', 'affidavitFileName')"
+                        />
+                        <p v-if="affidavitFileName" class="file-selected">Selected: {{ affidavitFileName }}</p>
+                    </div>
+
+                    <button class="send-otp" type="submit" :disabled="!policeClearanceFile || !affidavitFile">Continue</button>
+                    <div class="row-actions">
+                        <button type="button" class="link-button" @click="goBack">← Back</button>
+                        <button type="button" class="link-button" @click="skipStep">Skip for now</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- STEP 6: Experience (worker only) -->
+            <div v-if="step === 6 && userType === 'worker'">
+                <div class="n-headings">
+                    <h3>SKILLS &amp; EXPERIENCE</h3>
+                    <p>Tell us about your experience and the services you provide.</p>
+                </div>
+
+                <form class="verification-card" @submit.prevent="submitExperience">
+                    <label for="service">What service do you provide?</label>
+                    <select id="service" v-model="service" required>
+                        <option value="">Select a service</option>
+                        <option value="plumber">Plumber</option>
+                        <option value="carpenter">Carpenter</option>
+                        <option value="nanny">Nanny</option>
+                        <option value="cleaner">Cleaner</option>
+                        <option value="gardener">Gardener</option>
+                        <option value="other">Other</option>
+                    </select>
+
+                    <label for="experience">Years of Experience</label>
+                    <input id="experience" type="number" min="0" v-model.number="yearsExperience" placeholder="e.g. 3" required />
+
+                    <label>What experience can you provide?</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" value="clients" v-model="experienceChecks" /> Previous clients or employers</label>
+                        <label><input type="checkbox" value="references" v-model="experienceChecks" /> References</label>
+                        <label><input type="checkbox" value="photos" v-model="experienceChecks" /> Photos of previous work</label>
+                        <label><input type="checkbox" value="qualifications" v-model="experienceChecks" /> Qualifications or certificates</label>
+                    </div>
+
+                    <label for="experienceNotes">Tell us more about your experience</label>
+                    <textarea id="experienceNotes" rows="4" v-model="experienceNotes" placeholder="Describe your experience and the type of work you have done..."></textarea>
+
+                    <button class="send-otp" type="submit">Submit Information</button>
+                    <div class="row-actions">
+                        <button type="button" class="link-button" @click="goBack">← Back</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- FINAL STEP: Complete -->
+            <div v-if="step === totalSteps" class="complete-state">
+                <div class="success-icon">✓</div>
+                <h3 v-if="userType === 'worker'">YOU'RE ALL SET</h3>
+                <h3 v-else>PHONE VERIFIED</h3>
+
+                <p v-if="userType === 'worker'">Your verification information has been submitted successfully.</p>
+                <p v-else>You're ready to start booking.</p>
+
+                <div class="verification-summary" v-if="userType === 'worker'">
+                    <div class="summary-item"><span>✓</span><p>Phone verified</p></div>
+                    <div class="summary-item" v-if="idFile"><span>✓</span><p>ID submitted</p></div>
+                    <div class="summary-item" v-if="addressFile"><span>✓</span><p>Address submitted</p></div>
+                    <div class="summary-item" v-if="policeClearanceFile && affidavitFile"><span>✓</span><p>Background check submitted</p></div>
+                    <div class="summary-item" v-if="service"><span>✓</span><p>Skills &amp; experience submitted</p></div>
+                </div>
+
                 <button class="send-otp" type="button" @click="finishVerification">Continue</button>
             </div>
-            
+
         </div>
     </div>
 </template>
@@ -105,153 +238,194 @@ export default {
     props: {
         showVerification: {
             type: Boolean,
-            default: true
+            default: false
         },
         userType: {
             type: String,
-            default: 'customer', // Default to 'customer' if not provided
-            validator: (value) => ['worker', 'customer'].includes(value)
+            required: true // 'worker' or 'customer'
         }
     },
     data() {
         return {
             step: 1,
+            globalError: '',
+
+            // Phone / OTP
+            countryCode: '+27',
             phoneNumber: '',
             generatedOtp: '',
-            enteredOtp: '',
+            otpDigits: ['', '', '', '', '', ''],
             otpError: false,
+            resendCooldown: 0,
+            resendTimer: null,
+
+            // Step 3: ID
             idFile: null,
-            idFileName: ''
+            idFileName: '',
+
+            // Step 4: Address
+            addressFile: null,
+            addressFileName: '',
+
+            // Step 5: Background
+            policeClearanceFile: null,
+            policeClearanceFileName: '',
+            affidavitFile: null,
+            affidavitFileName: '',
+
+            // Step 6: Experience
+            service: '',
+            yearsExperience: null,
+            experienceChecks: [],
+            experienceNotes: ''
         }
     },
     computed: {
+        // Workers go through all 7 steps. Customers only need phone + OTP + done.
         totalSteps() {
-            return this.userType === 'worker' ? 4 : 3
-        }
-    },
-    watch: {
-        // Reset form when verification modal opens
-        showVerification(newVal) {
-            if (newVal) {
-                this.resetForm()
-            }
+            return this.userType === 'worker' ? 7 : 3
+        },
+        isOtpComplete() {
+            return this.otpDigits.every(d => d !== '')
         }
     },
     methods: {
-        resetForm() {
-            this.step = 1
-            this.phoneNumber = ''
-            this.generatedOtp = ''
-            this.enteredOtp = ''
-            this.otpError = false
-            this.idFile = null
-            this.idFileName = ''
-        },
-        
         sendOtp() {
-            // Validate phone number first
-            const phoneRegex = /^(0|\+27)[1-9][0-9]{8}$/
-            if (!phoneRegex.test(this.phoneNumber.replace(/\s/g, ''))) {
-                alert('Please enter a valid South African phone number')
-                return
-            }
-            
+            // BACKEND: replace with POST /api/verify/send-otp { phone }
             this.generatedOtp = Math.floor(100000 + Math.random() * 900000).toString()
-            console.log('Simulated OTP sent to', this.phoneNumber, ':', this.generatedOtp)
-            
-            // In production, you would call your API here
-            // await this.$api.sendOTP({ phone: this.phoneNumber })
-            
+            console.log('Simulated OTP sent:', this.generatedOtp)
+
             this.otpError = false
-            this.enteredOtp = ''
+            this.otpDigits = ['', '', '', '', '', '']
             this.step = 2
+            this.startResendCountdown()
         },
-        
+        startResendCountdown() {
+            this.resendCooldown = 30
+            clearInterval(this.resendTimer)
+            this.resendTimer = setInterval(() => {
+                this.resendCooldown--
+                if (this.resendCooldown <= 0) clearInterval(this.resendTimer)
+            }, 1000)
+        },
+        handleOtpInput(index, event) {
+            const value = event.target.value
+            if (value && index < 5) {
+                this.$refs.otpInputs[index + 1].focus()
+            }
+            this.otpError = false
+        },
+        handleOtpBackspace(index, event) {
+            if (!this.otpDigits[index] && index > 0) {
+                this.$refs.otpInputs[index - 1].focus()
+            }
+        },
         verifyOtp() {
-            if (this.enteredOtp === this.generatedOtp) {
+            // BACKEND: replace with POST /api/verify/check-otp { phone, code }
+            const enteredCode = this.otpDigits.join('')
+            if (enteredCode === this.generatedOtp) {
                 this.otpError = false
-                // Workers go to ID upload next. Customers skip straight to done.
                 this.step = this.userType === 'worker' ? 3 : this.totalSteps
-                
-                // Emit event for successful verification
-                this.$emit('phone-verified', this.phoneNumber)
             } else {
                 this.otpError = true
-                // Clear the OTP input for retry
-                this.enteredOtp = ''
             }
         },
-        
-        handleFileUpload(event) {
+
+        // Generic file handler used by every upload step
+        handleFileUpload(event, fileKey, fileNameKey) {
             const file = event.target.files[0]
             if (file) {
-                // Validate file type
-                if (!file.type.startsWith('image/')) {
-                    alert('Please upload an image file')
-                    event.target.value = ''
-                    return
-                }
-                
-                // Validate file size (max 5MB)
-                if (file.size > 5 * 1024 * 1024) {
-                    alert('File size must be less than 5MB')
-                    event.target.value = ''
-                    return
-                }
-                
-                this.idFile = file
-                this.idFileName = file.name
+                this[fileKey] = file
+                this[fileNameKey] = file.name
             }
         },
-        
+
         submitId() {
-            if (!this.idFile) {
-                alert('Please select an ID document')
+            // BACKEND: POST /api/verify/submit-id (multipart/form-data)
+            console.log('ID submitted:', this.idFile)
+            this.step = 4
+        },
+        submitAddress() {
+            // BACKEND: POST /api/verify/submit-address (multipart/form-data)
+            console.log('Address submitted:', this.addressFile)
+            this.step = 5
+        },
+        submitBackground() {
+            // BACKEND: POST /api/verify/submit-background (multipart/form-data, 2 files)
+            console.log('Background docs submitted:', this.policeClearanceFile, this.affidavitFile)
+            this.step = 6
+        },
+        submitExperience() {
+            if (!this.service) {
+                this.globalError = 'Please select a service.'
                 return
             }
-            
-            // In production, you would upload the file here
-            // const formData = new FormData()
-            // formData.append('id', this.idFile)
-            // formData.append('phone', this.phoneNumber)
-            // await this.$api.uploadID(formData)
-            
-            console.log('Verification submitted:', {
-                phoneNumber: this.phoneNumber,
-                idFile: this.idFile.name
+            this.globalError = ''
+            // BACKEND: POST /api/verify/submit-experience { service, yearsExperience, experienceChecks, experienceNotes }
+            console.log('Experience submitted:', {
+                service: this.service,
+                yearsExperience: this.yearsExperience,
+                experienceChecks: this.experienceChecks,
+                experienceNotes: this.experienceNotes
             })
-            
             this.step = this.totalSteps
         },
-        
+
+        goBack() {
+            if (this.step > 1) this.step--
+        },
+        skipStep() {
+            if (this.step < this.totalSteps - 1) this.step++
+        },
         finishVerification() {
             this.$emit('complete')
         }
+    },
+    beforeUnmount() {
+        clearInterval(this.resendTimer)
     }
 }
 </script>
 
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --color-page: #ffffff;
+  --color-primary: #136163;
+  --color-primary-dark: #134748;
+  --color-text: #000000;
+  --font-main: "Plus Jakarta Sans", sans-serif;
+  --font-xs: 0.7rem;
+  --font-sm: 0.85rem;
+  --font-md: 1rem;
+  --font-lg: 1.5rem;
+  --font-xl: 2rem;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+}
+</style>
+
 <style scoped>
-/* Your existing styles... */
 .verification-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
+    padding: 20px;
 }
 
 .n-verifyForm {
     background: white;
     padding: 2rem;
-    border-radius: 12px;
-    max-width: 400px;
-    width: 90%;
+    border-radius: 16px;
+    max-width: 380px;
+    width: 100%;
+    font-family: var(--font-main);
     position: relative;
     max-height: 90vh;
     overflow-y: auto;
@@ -259,23 +433,19 @@ export default {
 
 .close-btn {
     position: absolute;
-    top: 10px;
-    right: 15px;
+    top: 16px;
+    right: 16px;
     background: none;
     border: none;
     font-size: 24px;
     cursor: pointer;
-    color: #666;
-}
-
-.close-btn:hover {
-    color: #000;
+    color: #999;
 }
 
 .n-bars {
     display: flex;
-    gap: 8px;
-    margin-bottom: 20px;
+    gap: 6px;
+    margin-bottom: 4px;
 }
 
 .progress-segment {
@@ -283,109 +453,279 @@ export default {
     height: 4px;
     background: #e5e7eb;
     border-radius: 2px;
-    transition: background 0.3s ease;
 }
 
 .progress-segment.active {
-    background: #136163;
+    background: var(--color-primary);
+}
+
+.step-count {
+    text-align: right;
+    font-size: var(--font-xs);
+    color: #999;
+    margin-bottom: 20px;
+}
+
+.error-banner {
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: var(--font-sm);
+    margin-bottom: 16px;
 }
 
 .n-headings h3 {
-    margin: 0 0 8px 0;
-    font-size: 1.25rem;
+    font-size: var(--font-lg);
+    color: var(--color-text);
+    margin-bottom: 4px;
 }
 
 .n-headings p {
-    margin: 0 0 16px 0;
-    color: #6b7280;
-    font-size: 0.9rem;
-}
-
-.verification-card {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    font-size: var(--font-sm);
+    color: #666;
+    margin-bottom: 20px;
 }
 
 .verification-card label {
+    font-size: var(--font-sm);
     font-weight: 600;
-    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 8px;
 }
 
-.verification-card input[type="tel"],
-.verification-card input[type="text"] {
-    padding: 10px 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 1rem;
+.verification-card select,
+.verification-card input[type="number"],
+.verification-card textarea {
     width: 100%;
+    padding: 10px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: var(--font-sm);
+    margin-bottom: 16px;
     box-sizing: border-box;
 }
 
-.verification-card input:focus {
+.verification-card textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+.phone-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.phone-row select {
+    flex: 0 0 70px;
+    margin-bottom: 0;
+}
+
+.phone-row input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: var(--font-sm);
+}
+
+input:focus, select:focus, textarea:focus {
     outline: none;
-    border-color: #136163;
-    box-shadow: 0 0 0 3px rgba(19, 97, 99, 0.1);
+    border-color: var(--color-primary);
+}
+
+.otp-inputs {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.otp-inputs input {
+    width: 44px;
+    height: 52px;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 600;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-family: inherit;
+}
+
+.upload-group input[type="file"],
+.upload-section input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: var(--font-sm);
+    margin-bottom: 8px;
+    box-sizing: border-box;
+    background: #fafafa;
+}
+
+.upload-section {
+    background: #f9fafb;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 16px;
+}
+
+.upload-section p {
+    font-size: var(--font-xs);
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.file-selected {
+    font-size: var(--font-xs);
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+.upload-info {
+    font-size: var(--font-xs);
+    color: #999;
+    margin-bottom: 16px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 400;
+    font-size: var(--font-sm);
+    margin-bottom: 0;
 }
 
 .send-otp {
-    background: #136163;
+    width: 100%;
+    background: var(--color-primary);
     color: white;
     border: none;
     padding: 12px;
     border-radius: 8px;
-    font-size: 1rem;
+    font-family: inherit;
+    font-size: var(--font-sm);
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s ease;
 }
 
-.send-otp:hover:not(:disabled) {
-    background: #0f4e50;
+.send-otp:hover {
+    background: var(--color-primary-dark);
 }
 
 .send-otp:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
 }
 
 .error-message {
     color: #ef4444;
-    font-size: 0.85rem;
-    margin: -4px 0 4px 0;
+    font-size: var(--font-xs);
+    margin-bottom: 10px;
 }
 
 .resend {
-    color: #136163;
     text-align: center;
+    font-size: var(--font-xs);
+    color: var(--color-primary);
+    margin-top: 12px;
     cursor: pointer;
-    font-size: 0.9rem;
-    margin: 4px 0 0 0;
-}
-
-.resend:hover {
     text-decoration: underline;
 }
 
-.phone-confirmed {
-    background: #f0fdf4;
-    color: #166534;
-    padding: 8px 12px;
-    border-radius: 6px;
-    margin-bottom: 16px;
-    font-size: 0.9rem;
+.resend.disabled {
+    color: #999;
+    cursor: not-allowed;
+    text-decoration: none;
 }
 
-.file-selected {
-    color: #136163;
-    font-size: 0.85rem;
-    margin: -4px 0 0 0;
+.row-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
 }
 
-@media (max-width: 480px) {
-    .n-verifyForm {
-        padding: 1.5rem;
-        width: 95%;
-    }
+.link-button {
+    background: none;
+    border: none;
+    color: var(--color-primary);
+    font-size: var(--font-sm);
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.link-button:hover {
+    text-decoration: underline;
+}
+
+.complete-state {
+    text-align: center;
+}
+
+.success-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+}
+
+.complete-state h3 {
+    font-size: var(--font-lg);
+    margin-bottom: 8px;
+}
+
+.complete-state > p {
+    font-size: var(--font-sm);
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.verification-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f0fdfa;
+    border: 1px solid #ccfbf1;
+    border-radius: 8px;
+    padding: 10px 14px;
+}
+
+.summary-item span {
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+.summary-item p {
+    font-size: var(--font-sm);
+    margin: 0;
 }
 </style>
