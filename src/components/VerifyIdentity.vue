@@ -189,7 +189,7 @@
 
                     <label for="experience">Years of Experience</label>
                     <input id="experience" type="number" min="0" v-model.number="yearsExperience" placeholder="e.g. 3" required />
-                    
+
 
                     <label for="experienceNotes">Tell us more about your experience</label>
                     <textarea id="experienceNotes" rows="4" v-model="experienceNotes" placeholder="Describe your experience and the type of work you have done..."></textarea>
@@ -269,7 +269,6 @@ export default {
             // Step 6: Experience
             service: '',
             yearsExperience: null,
-            experienceChecks: [],
             experienceNotes: ''
         }
     },
@@ -358,7 +357,6 @@ export default {
             console.log('Experience submitted:', {
                 service: this.service,
                 yearsExperience: this.yearsExperience,
-                experienceChecks: this.experienceChecks,
                 experienceNotes: this.experienceNotes
             })
             this.step = this.totalSteps
