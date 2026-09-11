@@ -31,6 +31,7 @@ const navLinks = ref(linkList)
   justify-content: flex-end;
   align-items: center;
   padding: var(--spacing-sm) var(--spacing-md);
+  font-family: var(--font-main);
 }
 
 .navbar-links {

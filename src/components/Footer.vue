@@ -23,6 +23,7 @@ const currentYear = ref(2026)
   text-align: center;
   padding: var(--spacing-sm) var(--spacing-md);
   color: var(--color-page);
+  font-family: var(--font-main);
 }
 
 .footer-tagline {
