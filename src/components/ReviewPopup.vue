@@ -85,34 +85,6 @@ export default {
 }
 </script>
 
-<style>
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap");
-
-:root {
-  --color-page: #ffffff;
-  --color-primary: #136163;
-  --color-primary-dark: #134748;
-  --color-text: #000000;
-  --font-main: "Plus Jakarta Sans", sans-serif;
-  --font-xs: 0.7rem;
-  --font-sm: 0.85rem;
-  --font-md: 1rem;
-  --font-lg: 1.5rem;
-  --font-xl: 2rem;
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 1rem;
-  --spacing-md: 2rem;
-  --spacing-lg: 4rem;
-  --spacing-xl: 6rem;
-  --page-max-width: 1200px;
-  --page-padding: 2rem;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-}
-</style>
 
 <style scoped>
 .n-reviewCard {

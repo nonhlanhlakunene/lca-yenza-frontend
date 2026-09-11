@@ -1,0 +1,56 @@
+/* GLOBAL STYLING */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* =========================
+     YENZA COLOUR SYSTEM
+  ========================= */
+  --color-page: #FFFFFF;
+  --color-primary: #136163;
+  --color-primary-dark: #134748;
+  --color-text: #000000;
+
+  /* =========================
+     TYPOGRAPHY
+  ========================= */
+  --font-main: 'Plus Jakarta Sans', sans-serif;
+
+
+  /* =========================
+     FONT SIZES
+  ========================= */
+  --font-xs: 0.7rem;
+  --font-sm: 0.85rem;
+  --font-md: 1rem;
+  --font-lg: 1.5rem;
+  --font-xl: 2rem;
+
+
+  /* =========================
+     SPACING
+  ========================= */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 6rem;
+
+
+  /* =========================
+     LAYOUT
+  ========================= */
+  /* --page-max-width: 1200px; */
+  --page-padding: 2rem;
+}
+
+/* GLOBAL RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}

@@ -378,25 +378,7 @@ export default {
 }
 </script>
 
-<style>
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap");
 
-:root {
-  --color-page: #ffffff;
-  --color-primary: #136163;
-  --color-primary-dark: #134748;
-  --color-text: #000000;
-  --font-main: "Plus Jakarta Sans", sans-serif;
-  --font-xs: 0.7rem;
-  --font-sm: 0.85rem;
-  --font-md: 1rem;
-  --font-lg: 1.5rem;
-  --font-xl: 2rem;
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 1rem;
-  --spacing-md: 2rem;
-}
-</style>
 
 <style scoped>
 .verification-overlay {
@@ -414,12 +396,12 @@ export default {
     background: white;
     padding: 60px;
     border-radius: 5px;
-    max-width: 380px;
-    width: 100%;
+    max-width: 500px;
+    width: 480px;
     font-family: var(--font-main);
     position: relative;
-    max-height: 90vh;
-    height: 70vh;
+    max-height: 130vh;
+    height: 95vh;
     overflow-y: auto;
 }
 
