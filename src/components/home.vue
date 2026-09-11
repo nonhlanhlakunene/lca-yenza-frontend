@@ -3,16 +3,6 @@ import services from '../assets/services2.png'
 </script>
 
 <template>
-        <nav class="home-navbar">
-            <ul class="navbar-links">
-                <li><a href="">Home</a></li>
-                <li><a href="">Services</a></li>
-                <li><a href="">About Us</a></li>
-                <li><a href="">Reviews</a></li>
-                <li><a href="">Bookings</a></li>
-                <li><a href="">Contact</a></li>
-            </ul>
-        </nav>
     <div class="home-container">
         <div class="home-hero-section">
             <div class="home-text">
@@ -86,10 +76,6 @@ import services from '../assets/services2.png'
                 </div>
             </div>
         </div>
-        <footer class="site-footer">
-            <p class="footer-tagline">Making it easier to find trusted professionals</p>
-            <p class="footer-copyright">&copy; 2026 YENZA! All rights reserved.</p>
-        </footer>
     </div>
 </template>
 
@@ -114,26 +100,6 @@ import services from '../assets/services2.png'
 
 /* Navbar */
 
-.home-navbar{
-    background: #136163;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 15px 50px;
-}
-
-.navbar-links{
-    gap: 50px;
-    display: flex;
-    list-style: none;
-}
-
-.navbar-links a {
-    color: white;
-    text-decoration: none;
-    font-size: 15px;
-    transition: 0.3s;
-}
 
 
 /* ========================= */
@@ -199,16 +165,6 @@ import services from '../assets/services2.png'
 
 
 @media (max-width: 1024px) {
-    .home-navbar {
-        justify-content: center;
-        padding: 15px 30px;
-    }
-
-    .navbar-links {
-        gap: 25px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
 
     .home-container {
         height: auto;
@@ -247,18 +203,6 @@ import services from '../assets/services2.png'
     }
 }
 @media (max-width: 768px) {
-    .home-navbar {
-        padding: 15px 20px;
-    }
-
-    .navbar-links {
-        gap: 15px;
-    }
-
-    .navbar-links a {
-        font-size: 14px;
-    }
-
     .home-text {
         min-height: 400px;
         padding: 35px 25px;
@@ -280,17 +224,6 @@ import services from '../assets/services2.png'
 }
 
 @media (max-width: 480px) {
-    .home-navbar {
-        padding: 12px 15px;
-    }
-
-    .navbar-links {
-        gap: 10px;
-    }
-
-    .navbar-links a {
-        font-size: 13px;
-    }
 
     .home-text {
         min-height: 350px;
@@ -724,37 +657,4 @@ import services from '../assets/services2.png'
 
 
 
-.site-footer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 8px; 
-  background-color: #115e59; 
-  color: #ffffff;            
-  padding: 24px 16px;       
-  font-family: sans-serif;   
-  text-align: center;
-}
-
-.footer-tagline {
-  font-weight: 600;
-  font-size: 16px;
-  margin: 0;               
-}
-
-.footer-copyright {
-  font-weight: 500;
-  font-size: 14px;
-  opacity: 0.9;             
-  margin: 0;                 
-}
-
-@media (min-width: 768px) {
-  .site-footer {
-    flex-direction: row;            
-    justify-content: space-between; 
-    gap: 0;
-  }
-}
 </style>
