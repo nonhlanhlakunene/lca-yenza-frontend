@@ -73,7 +73,7 @@
             <div v-if="step === 3 && userType === 'worker'">
                 <div class="n-headings">
                     <h3>VERIFY YOUR IDENTITY</h3>
-                    <p>Upload a clear photo of your South African ID.</p>
+                    <p>Upload a certified document of your South African ID.</p>
                 </div>
 
                 <form class="verification-card" @submit.prevent="submitId">
@@ -103,7 +103,7 @@
             <div v-if="step === 4 && userType === 'worker'">
                 <div class="n-headings">
                     <h3>VERIFY YOUR ADDRESS</h3>
-                    <p>Upload a document that confirms your current address.</p>
+                    <p>Upload a certified document of your proof of address.</p>
                 </div>
 
                 <form class="verification-card" @submit.prevent="submitAddress">
@@ -182,21 +182,14 @@
                         <option value="plumber">Plumber</option>
                         <option value="carpenter">Carpenter</option>
                         <option value="nanny">Nanny</option>
-                        <option value="cleaner">Cleaner</option>
+                        <option value="cleaner">Painter</option>
                         <option value="gardener">Gardener</option>
                         <option value="other">Other</option>
                     </select>
 
                     <label for="experience">Years of Experience</label>
                     <input id="experience" type="number" min="0" v-model.number="yearsExperience" placeholder="e.g. 3" required />
-
-                    <label>What experience can you provide?</label>
-                    <div class="checkbox-group">
-                        <label><input type="checkbox" value="clients" v-model="experienceChecks" /> Previous clients or employers</label>
-                        <label><input type="checkbox" value="references" v-model="experienceChecks" /> References</label>
-                        <label><input type="checkbox" value="photos" v-model="experienceChecks" /> Photos of previous work</label>
-                        <label><input type="checkbox" value="qualifications" v-model="experienceChecks" /> Qualifications or certificates</label>
-                    </div>
+                    
 
                     <label for="experienceNotes">Tell us more about your experience</label>
                     <textarea id="experienceNotes" rows="4" v-model="experienceNotes" placeholder="Describe your experience and the type of work you have done..."></textarea>
@@ -421,13 +414,14 @@ export default {
 
 .n-verifyForm {
     background: white;
-    padding: 2rem;
-    border-radius: 16px;
+    padding: 60px;
+    border-radius: 5px;
     max-width: 380px;
     width: 100%;
     font-family: var(--font-main);
     position: relative;
     max-height: 90vh;
+    height: 70vh;
     overflow-y: auto;
 }
 
@@ -488,11 +482,15 @@ export default {
     margin-bottom: 20px;
 }
 
+.verification-card {
+    margin-top: 40px;
+}
+
 .verification-card label {
     font-size: var(--font-sm);
     font-weight: 600;
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 15px;
 }
 
 .verification-card select,
