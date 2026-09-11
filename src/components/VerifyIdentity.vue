@@ -706,4 +706,56 @@ input:focus, select:focus, textarea:focus {
     font-size: var(--font-sm);
     margin: 0;
 }
+
+/* Tablet and below */
+@media (max-width: 768px) {
+    .n-verifyForm {
+        padding: 32px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .n-verifyForm {
+        padding: 24px;
+        height: auto;
+        max-height: 85vh;
+    }
+
+    .n-headings h3 {
+        font-size: 1.2rem;
+    }
+
+    .otp-inputs {
+        gap: 5px;
+    }
+
+    .otp-inputs input {
+        width: 36px;
+        height: 44px;
+        font-size: 1.1rem;
+    }
+
+    .phone-row {
+        flex-direction: column;
+    }
+
+    .phone-row select {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    .row-actions {
+        flex-direction: row;
+        gap: 8px;
+    }
+
+    .link-button {
+        flex: 1;
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+    }
+}
 </style>
