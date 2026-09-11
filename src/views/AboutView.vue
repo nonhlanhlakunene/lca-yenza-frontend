@@ -109,7 +109,7 @@ const bannerItems = ref(bannerList)
 
 const teamList = [
   {
-    title: 'Co-founder',
+    title: 'Nonhlanhla Kunene',
     focus: 'Operations and service quality',
     description: 'Vets and onboards professionals, and keeps every booking running smoothly.'
   },
@@ -119,7 +119,7 @@ const teamList = [
     description: 'Shapes the platform experience and keeps the booking journey simple.'
   },
   {
-    title: 'Co-founder',
+    title: 'Ishma-iel Gray',
     focus: 'Partnerships and growth',
     description: 'Builds relationships with local professionals and grows awareness in the community.'
   },
