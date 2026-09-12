@@ -1,9 +1,11 @@
 <script setup>
+import { RouterLink, RouterView } from 'vue-router'
 import NavBar from './components/NavBar.vue'
 import Footer from './components/Footer.vue'
 </script>
 
 <template>
+  <RouterView />
   <div id="app">
     <NavBar v-if="$route.path !== '/login' && $route.path !== '/signup'" />
 
@@ -12,6 +14,7 @@ import Footer from './components/Footer.vue'
     <Footer />
   </div>
 </template>
+
 
 <style>
 html,
