@@ -2,6 +2,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import store from './stores'
+import './assets/main.css'
 
 import router from './router'
 

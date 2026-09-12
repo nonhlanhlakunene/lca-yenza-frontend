@@ -117,7 +117,7 @@ export default {
 };
 </script>
 
-<style>
+<!-- <style>
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap");
 
 :root {
@@ -141,7 +141,7 @@ export default {
     --page-max-width: 1200px;
     --page-padding: 2rem;
 }
-</style>
+</style> -->
 
 <style scoped>
 * {
