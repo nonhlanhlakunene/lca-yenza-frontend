@@ -6,16 +6,8 @@ import Footer from './components/Footer.vue'
 
 
 <template>
-  <RouterView />
-  <div id="app">
     <NavBar v-if="$route.path !== '/login' && $route.path !== '/signup'" />
-
-    <RouterView />
-
-    <Footer />
-  </div>
   <div id="app">
-    <NavBar />
 
     <RouterView />
 

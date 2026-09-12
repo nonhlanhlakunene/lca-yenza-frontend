@@ -1,8 +1,26 @@
 import { createRouter, createWebHistory } from "vue-router";
 import AboutView from "../views/AboutView.vue";
 import CheckoutView from "../views/CheckoutView.vue";
+import Login from '@/components/login.vue';
+import Signup from '@/components/signup.vue';
+import Home from '@/components/home.vue';
 
 const routes = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/signup',
+    name: 'Signup',
+    component: Signup
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home
+  },
   {
     path: "/about",
     name: "about",
@@ -47,29 +65,44 @@ const routes = [
     props: { showVerification: true, userType: "worker" },
   },
 ];
-import { createRouter, createWebHistory } from 'vue-router';
-import Login from '@/components/login.vue';
-import Signup from '@/components/signup.vue';
-import Home from '@/components/home.vue';
 
 
-const routes = [
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login
-  },
-  {
-    path: '/signup',
-    name: 'Signup',
-    component: Signup
-  },
-  {
-    path: '/home',
-    name: 'Home',
-    component: Home
-  }
-];
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import { createRouter, createWebHistory } from 'vue-router';
+// import Login from '@/components/login.vue';
+// import Signup from '@/components/signup.vue';
+// import Home from '@/components/home.vue';
+
+
+// const routes = [
+//   {
+//     path: '/login',
+//     name: 'Login',
+//     component: Login
+//   },
+//   {
+//     path: '/signup',
+//     name: 'Signup',
+//     component: Signup
+//   },
+//   {
+//     path: '/home',
+//     name: 'Home',
+//     component: Home
+//   }
+// ];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
